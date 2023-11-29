@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 
 // components
-// import BlogDetails from "../components/BlogDetails"
+import BlogDetails from "../components/BlogDetails"
+import BlogForm from "../components/BlogForm"
 
 const Home = () => {
   const [blogs, setBlogs] = useState(null)
@@ -23,9 +24,10 @@ const Home = () => {
     <div className="home">
       <div className="blogs">
         {blogs && blogs.map((blog) => (
-            <p key={blog._id}>{blog.title}</p>
+            <BlogDetails key={blog._id} blog={blog} />
         ))}
       </div>
+      <BlogForm />
     </div>
   )
 }
