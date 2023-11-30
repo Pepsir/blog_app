@@ -7,6 +7,7 @@ const cors = require('cors')
 // express app
 const app = express();
 const blogRoutes = require('./routes/blogRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 //middleware
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 
 //routes
 app.use('/blogs', blogRoutes)
+app.use('/users', userRoutes)
 
 // connect to database
 mongoose.connect(process.env.MONGO_URI)
