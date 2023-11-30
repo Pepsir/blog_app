@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useBlogsContext } from '../hooks/useBlogsContext'
 
 const BlogForm = () => {
-    
+    const { dispatch } = useBlogsContext()
+
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [content, setContent] = useState('')
@@ -12,7 +14,7 @@ const BlogForm = () => {
 
         const blog = {title, author, content}
 
-        const response = await fetch('/', {
+        const response = await fetch('/blogs', {
             method: 'POST',
             body: JSON.stringify(blog),
             headers: {
@@ -30,7 +32,7 @@ const BlogForm = () => {
             setTitle('')
             setAuthor('')
             setContent('')
-            console.log('New Blog added')
+            dispatch({type: 'CREATE_BLOG', payload: json})
         }
     }
 
