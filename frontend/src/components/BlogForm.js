@@ -8,6 +8,7 @@ const BlogForm = () => {
     const [author, setAuthor] = useState('')
     const [content, setContent] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -25,10 +26,12 @@ const BlogForm = () => {
 
         if (!response.ok) {
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
 
         if (response.ok) {
             setError(null)
+            setEmptyFields([])
             setTitle('')
             setAuthor('')
             setContent('')
@@ -45,6 +48,7 @@ const BlogForm = () => {
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
+                className={emptyFields.includes('title') ? 'error': ''}
             />
 
             <label>Author:</label>
@@ -52,6 +56,7 @@ const BlogForm = () => {
                 type="text"
                 onChange={(e) => setAuthor(e.target.value)}
                 value={author}
+                className={emptyFields.includes('author') ? 'error': ''}
             />
 
             <label>Content: </label>
@@ -59,6 +64,7 @@ const BlogForm = () => {
                 type="text"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
+                className={emptyFields.includes('content') ? 'error': ''}
             />
 
             <button>Add Blog</button>

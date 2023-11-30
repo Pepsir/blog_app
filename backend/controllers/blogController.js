@@ -30,6 +30,20 @@ const getSingleBlog = async (req, res) => {
 const createBlog = async (req, res) => {
     const { title, author, content } = req.body
 
+    let emptyFields = []
+
+    if (!title) {
+        emptyFields.push('title')
+    }
+    if (!author) {
+        emptyFields.push('author')
+    }
+    if (!content) {
+        emptyFields.push('content')
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({error: 'Please fill in all fields', emptyFields})
+    }
     //add to database
     try {
         const blog = await Blog.create({title, author, content})
