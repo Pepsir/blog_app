@@ -6,8 +6,12 @@ const {
     deleteBlog,
     updateBlog
 } = require('../controllers/blogController')
+const requireAuth = require('../middleware/requireAuth')
 
+// require Auth for all blog routes
 const router = express.Router();
+
+router.use(requireAuth)
 
 //Get ALL blogs
 router.get('/', getblogs)
